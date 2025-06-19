@@ -1,11 +1,82 @@
-html,
-body,
-#root
-{
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'Manifa Pro 2';
+  src: url('/fonts/manifa-v2-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ghawar';
+  src: url('/fonts/ghawar-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gill Sans Nova';
+  src: url('/fonts/gill-sans-nova-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  position: relative;
+  z-index: 0;
+  height: 100%;
+}
+
+canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem;
+  color: white;
+}
+
+.font-abcd {
+  font-family: 'ABCDiatype', Arial, sans-serif;
+  font-weight: 400;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-manifa {
+  font-family: 'Manifa Pro 2', Arial, sans-serif;
+  font-weight: 400;
+}
+
+.font-ghawar {
+  font-family: 'Ghawar', serif;
+}
+
+.font-gill {
+  font-family: 'Gill Sans Nova', Arial, sans-serif;
+  font-weight: 400;
+}
+
+.font-ebgaramond {
+  font-family: 'EB Garamond', serif;
 }
