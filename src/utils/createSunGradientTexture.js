@@ -7,8 +7,8 @@ export function createSunGradientTexture() {
   const ctx = canvas.getContext('2d')
 
   const gradient = ctx.createRadialGradient(
-    size * 0.7, size * 0.5, size * 0.05,
-    size * 0.7, size * 0.5, size * 0.6
+    size * 0.7, size * 0.5, size * 0.01,
+    size * 0.7, size * 0.5, size * 0.35
   )
 
   gradient.addColorStop(0, '#ffd98c')

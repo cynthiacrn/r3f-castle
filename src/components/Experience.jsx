@@ -1,9 +1,8 @@
 import * as THREE from 'three'
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {useFrame, useThree} from "@react-three/fiber";
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { useMousePosition } from '../hooks/useMousePosition'
-import { logCameraPositionAndLookAt } from '../utils/logCamera'
 import { createSunGradientTexture } from "../utils/createSunGradientTexture.js";
 import Overlay from '../assets/textures/paper-2.jpg'
 import { materials } from '../materials.js'
@@ -15,26 +14,25 @@ import Particles from './Particles'
 export default function Experience() {
   const [selectedObjects, setSelectedObjects] = useState([])
   const group = useRef()
-  const { scene, camera, size, clock } = useThree()
+  const controlsRef = useRef()
+
+  const { scene, size, clock, camera } = useThree()
+
   const { scene: modelScene } = useGLTF('./models/castle.glb')
   const mouse = useMousePosition(size)
 
   scene.background = createSunGradientTexture()
 
   useEffect(() => {
-    camera.fov = 45
-    camera.near = 0.1
-    camera.far = 1000
-    camera.updateProjectionMatrix()
+    const handleKeyDown = (e) => {
+      if (e.key.toLowerCase() === 'p' && controlsRef.current) {
+        const cam = camera
+        const pos = cam.position.clone()
+        const lookAt = controlsRef.current.target.clone() // 🔥 Le vrai lookAt
 
-    camera.position.set(60, 25, 115)
-    camera.lookAt(0, 15, 0)
-  }, [camera])
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key.toLowerCase() === 'p') {
-        logCameraPositionAndLookAt(camera)
+        console.log('--- CAMERA STEP ---')
+        console.log(`position: new THREE.Vector3(${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.z.toFixed(2)}),`)
+        console.log(`lookAt: new THREE.Vector3(${lookAt.x.toFixed(2)}, ${lookAt.y.toFixed(2)}, ${lookAt.z.toFixed(2)}),`)
       }
     }
 
@@ -90,15 +88,20 @@ export default function Experience() {
       materials.particlesMaterial.uniforms.uTime.value = t
     }
 
-    group.current.position.x = mouse.x * 2
-    group.current.position.y = mouse.y
+    // group.current.position.x = mouse.x * 2
+    // group.current.position.y = mouse.y
   })
 
   return (
     <>
+      <OrbitControls
+        ref={controlsRef}
+        makeDefault
+        enableDamping
+        target={[0, 15, 0]}
+      />
       <Sun />
       <Lights />
-      <OrbitControls />
       <Particles />
       <group ref={group} />
       <PostProcessing selectedObjects={selectedObjects} overlayTextureUrl={Overlay}/>

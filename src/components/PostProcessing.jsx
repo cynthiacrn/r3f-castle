@@ -31,8 +31,8 @@ export default function PostProcessing({ selectedObjects = [], overlayTextureUrl
     new TextureLoader().load(overlayTextureUrl, (tex) => {
       overlayPass.uniforms.tOverlay.value = tex
     })
-    overlayPass.uniforms.uOpacity.value = 0.4
-    overlayPass.uniforms.uFadeCenter.value = 0.6
+    overlayPass.uniforms.uOpacity.value = 0.2
+    overlayPass.uniforms.uFadeCenter.value = 0.4
     overlayPass.uniforms.uFadeStrength.value = 1.5
     composerInstance.addPass(overlayPass)
 
